@@ -1,38 +1,262 @@
+:root {
+  --color-1: #EF476F;
+  --color-2: #FFD166;
+  --color-3: #06D6A0;
+  --color-4: #118AB2;
+  --color-5: #073B4C;
+
+}
+
+.winning-square path {
+  fill: var(--color-2);
+}
+
+.winning-square polygon {
+  fill: var(--color-2);
+}
+
 .App {
   text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
+  background-color: var(--color-5);
   min-height: 100vh;
+
+}
+
+
+.container {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+  justify-content: space-between;
+
+}
+
+
+#header-comp {
+  background-color: var(--color-5);
+}
+
+
+
+/*home*/
+
+#main-title {
+  font-size: 3.5em;
   color: white;
+  padding: 0.5em;
+
 }
 
-.App-link {
-  color: #61dafb;
+.main-home {
+  background-color: var(--color-5);
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+/*Board*/
+
+#board-body {
+
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(3, 185px);
+  grid-template-rows: repeat(3, 185px);
+  padding: 1em;
+}
+
+.reset-button {
+  width: 555px;
+  align-self: center;
+  border: none;
+  background-color: var(--color-1);
+  color: white;
+  font-size: 1.5em;
+  margin-bottom: 1em;
+  margin-top: 0.5em;
+  height: 1.5em;
+
+}
+
+.reset-button:hover {
+  background-color: var(--color-3);
+}
+
+.whos-turn {
+  font-size: 3em;
+  color: white;
+  margin-bottom: 2em;
+}
+
+
+
+.windisplay {
+  color: white;
+  font-size: 1.5em;
+  margin-bottom: 1em;
+}
+
+/*square*/
+
+.square {
+  width: 185px;
+  height: 185px;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+}
+
+
+.square:nth-child(1) {
+  border-bottom: 15px solid #118AB2;
+}
+
+.square:nth-child(2) {
+  border-bottom: 15px solid #118AB2;
+  border-right: 15px solid #118AB2;
+  border-left: 15px solid #118AB2;
+}
+
+.square:nth-child(3) {
+  border-bottom: 15px solid #118AB2;
+}
+
+.square:nth-child(5) {
+  border-right: 15px solid #118AB2;
+  border-left: 15px solid #118AB2;
+}
+
+.square:nth-child(7) {
+  border-top: 15px solid #118AB2;
+}
+
+.square:nth-child(8) {
+  border-top: 15px solid #118AB2;
+  border-right: 15px solid #118AB2;
+  border-left: 15px solid #118AB2;
+}
+
+.square:nth-child(9) {
+  border-top: 15px solid #118AB2;
+}
+
+
+
+.svg-size {
+  width: 100px;
+  height: 100px;
+}
+
+.o path {
+  fill: var(--color-3);
+
+}
+
+.x polygon {
+  fill: var(--color-1);
+
+}
+
+
+/*responsiveness*/
+
+@media screen and (max-width: 768px) {
+  #board-body {
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(3, 120px);
+    grid-template-rows: repeat(3, 120px);
+    padding: 1em;
   }
-  to {
-    transform: rotate(360deg);
+
+  #main-title {
+    font-size: 2.5em;
   }
+
+  .square {
+    width: 120px;
+    height: 120px;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: none;
+  }
+
+  .reset-button {
+    width: 360px;
+  }
+
+
+  .svg-size {
+    width: 75px;
+    height: 75px;
+  }
+}
+
+@media screen and (max-width: 380px) {
+  #board-body {
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(3, 90px);
+    grid-template-rows: repeat(3, 90px);
+    padding: 0.25em;
+  }
+
+  #main-title {
+    font-size: 2em;
+  }
+
+  .square {
+    width: 90px;
+    height: 90px;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: none;
+  }
+
+  .reset-button {
+    width: 270px;
+  }
+
+
+  .svg-size {
+    width: 55px;
+    height: 55px;
+  }
+}
+
+
+@media screen and (max-width: 300px) {
+  #board-body {
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(3, 75px);
+    grid-template-rows: repeat(3, 75px);
+    padding: 0.25em;
+  }
+
+  #main-title {
+    font-size: 2em;
+  }
+
+  .square {
+    width: 75px;
+    height: 75px;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: none;
+  }
+
+  .reset-button {
+    width: 225px;
+  }
+
+  .svg-size {
+    width: 40px;
+    height: 40px;
+  }
+
 }
