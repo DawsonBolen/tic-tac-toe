@@ -41,6 +41,7 @@ function Board() {
 
 
   const checkWin = (currentBoard, currentPlayer) => {
+    let isBoardFull = true;
     for (let i = 0; i < winConditions.length; i++) {
       const [a, b, c] = winConditions[i];
       if (
@@ -53,6 +54,14 @@ function Board() {
         return currentPlayer;
 
       }
+
+      if (currentBoard[a] === null || currentBoard[b] === null || currentBoard[c] === null) {
+        isBoardFull = false;
+      }
+    }
+
+    if (isBoardFull) {
+      return "Tie";
     }
     setWinStreak(null);
     return null;
@@ -75,7 +84,11 @@ function Board() {
 
 
         {win ? (
-          <h3 className='animate__animated animate__fadeIn'>{win} wins</h3>
+          win === "Tie" ? (
+            <h3 className='animate__animated animate__fadeIn'>It's a Tie!</h3>
+          ) : (
+            <h3 className='animate__animated animate__fadeIn'>{win} wins</h3>
+          )
         ) : (
           <h3 className='animate__animated animate__fadeIn'>{player} is up</h3>
         )}
