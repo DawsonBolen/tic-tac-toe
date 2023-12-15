@@ -30,6 +30,12 @@
 
 }
 
+.main-board-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
 
 #header-comp {
   background-color: var(--color-5);
@@ -53,12 +59,12 @@
 /*Board*/
 
 #board-body {
-
   margin: 0 auto;
   display: grid;
   grid-template-columns: repeat(3, 185px);
   grid-template-rows: repeat(3, 185px);
   padding: 1em;
+  position: relative;
 }
 
 .reset-button {
@@ -68,7 +74,7 @@
   background-color: var(--color-1);
   color: white;
   font-size: 1.5em;
-  margin-bottom: 1em;
+  margin-bottom: 0.25em;
   margin-top: 0.5em;
   height: 1.5em;
 
@@ -78,13 +84,51 @@
   background-color: var(--color-3);
 }
 
+.reset-switch-btns {
+  display: flex;
+  flex-direction: column;
+}
+
+.switch-btn {
+  color: white;
+  height: 1.5em;
+  font-size: 1.5em;
+  border: none;
+  background-color: var(--color-1);
+  width: 555px;
+  align-self: center;
+}
+
+.switch-btn:hover {
+  background-color: var(--color-3);
+}
+
 .whos-turn {
   font-size: 3em;
   color: white;
   margin-bottom: 2em;
 }
 
+.game-mode-panel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1em;
+}
 
+.mode-btn {
+  cursor: pointer;
+  width: 300px;
+  background-color: var(--color-1);
+  height: 55px;
+  border: none;
+  color: white;
+
+}
+
+.mode-btn:hover {
+  background-color: var(--color-2);
+}
 
 .windisplay {
   color: white;
@@ -156,6 +200,103 @@
 }
 
 
+
+
+.win-streak-1 {
+  position: absolute;
+  background-color: white;
+  right: 0px;
+  left: 0px;
+  top: 17%;
+  height: 10px;
+  z-index: 200;
+  border-radius: 10px;
+}
+
+.win-streak-2 {
+  position: absolute;
+  background-color: white;
+  right: 0px;
+  left: 0px;
+  top: 50%;
+  height: 10px;
+  z-index: 200;
+  border-radius: 10px;
+}
+
+.win-streak-3 {
+  position: absolute;
+  background-color: white;
+  right: 0px;
+  left: 0px;
+  bottom: 17%;
+  height: 10px;
+  z-index: 200;
+  border-radius: 10px;
+}
+
+.win-streak-4 {
+  position: absolute;
+  background-color: white;
+  top: 0px;
+  bottom: 0px;
+  left: 17%;
+  width: 10px;
+  z-index: 200;
+  border-radius: 10px;
+}
+
+.win-streak-5 {
+  position: absolute;
+  background-color: white;
+  top: 0px;
+  bottom: 0px;
+  left: 50%;
+  width: 10px;
+  z-index: 200;
+  border-radius: 10px;
+}
+
+.win-streak-6 {
+  position: absolute;
+  background-color: white;
+  top: 0px;
+  bottom: 0px;
+  right: 17%;
+  width: 10px;
+  z-index: 200;
+  border-radius: 10px;
+}
+
+
+.win-streak-7 {
+  position: absolute;
+  width: 90%;
+  height: 10px;
+  top: 0;
+  left: 0;
+  background-color: white;
+  transform-origin: top right;
+  transform: translateY(50%) skewY(-45deg);
+
+
+}
+
+
+.win-streak-8 {
+
+  position: absolute;
+  width: 90%;
+  height: 10px;
+  top: 0;
+  left: 0;
+  background-color: white;
+  transform-origin: top left;
+  transform: translateY(50%) skewY(45deg);
+
+}
+
+
 /*responsiveness*/
 
 @media screen and (max-width: 768px) {
@@ -182,6 +323,10 @@
   }
 
   .reset-button {
+    width: 360px;
+  }
+
+  .switch-btn {
     width: 360px;
   }
 
@@ -219,6 +364,9 @@
     width: 270px;
   }
 
+  .switch-btn {
+    width: 270px;
+  }
 
   .svg-size {
     width: 55px;
@@ -251,6 +399,10 @@
   }
 
   .reset-button {
+    width: 225px;
+  }
+
+  .switch-btn {
     width: 225px;
   }
 

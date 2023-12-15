@@ -20,6 +20,30 @@ function Board() {
     [0, 4, 8]
   ];
 
+
+
+  useEffect(() => {
+    if (mode === 1 && player === 'O') {
+      const emptySquares = board.reduce((acc, val, index) => {
+        if (val === null) {
+          acc.push(index);
+        }
+        return acc;
+      }, []);
+
+      if (emptySquares.length > 0 && !win) {
+        let delay;
+        const delayedMove = () => {
+          makeSmartComputerMove(board);
+        };
+
+        delay = setTimeout(delayedMove, 1000);
+
+        return () => clearTimeout(delay);
+      }
+    }
+  }, [player, board, win]);
+
   const playerMove = (index) => {
     if (win || board[index] !== null) {
       return;
@@ -37,6 +61,27 @@ function Board() {
 
   };
 
+
+
+  const [menuDisplay, setMenuDisplay] = useState(true);
+
+  const toggleMenu = () => {
+    setMenuDisplay(!menuDisplay)
+  }
+
+  const [mode, gameMode] = useState(null)
+
+  const setSinglePlayer = () => {
+    toggleMenu();
+    gameMode(1);
+  }
+
+  const setDoublePlayer = () => {
+    toggleMenu();
+    gameMode(2);
+  }
+
+  const isDisabled = mode === 1 && player === 'O';
 
 
 
@@ -70,6 +115,33 @@ function Board() {
 
 
 
+  const makeSmartComputerMove = (currentBoard) => {
+    const emptySquares = currentBoard.reduce((acc, val, index) => {
+      if (val === null) {
+        acc.push(index);
+      }
+      return acc;
+    }, []);
+    for (let i = 0; i < emptySquares.length; i++) {
+      const testBoard = [...currentBoard];
+      testBoard[emptySquares[i]] = 'O';
+      if (checkWin(testBoard, 'O')) {
+        playerMove(emptySquares[i]);
+        return;
+      }
+    }
+    for (let i = 0; i < emptySquares.length; i++) {
+      const testBoard = [...currentBoard];
+      testBoard[emptySquares[i]] = 'X';
+      if (checkWin(testBoard, 'X')) {
+        playerMove(emptySquares[i]);
+        return;
+      }
+    }
+    const randomIndex = Math.floor(Math.random() * emptySquares.length);
+    playerMove(emptySquares[randomIndex]);
+  };
+
   const reset = () => {
     // Reset the board and player to their initial state
     setBoard(initialBoardState);
@@ -78,45 +150,72 @@ function Board() {
     setWinStreak(null);
   };
 
+
+  const switchGameMode = () => {
+    if (mode === 1) {
+      reset();
+      gameMode(2)
+    } else {
+      reset();
+      gameMode(1)
+    }
+  }
+
   return (
     <div className='container'>
-      <div className='windisplay'>
+      {!menuDisplay ? (
+        <div className='main-board-container'>
+          <div className='windisplay'>
+            {win ? (
+              win === "Tie" ? (
+                <h3 className='animate__animated animate__fadeIn'>It's a Tie!</h3>
+              ) : (
+                <h3 className='animate__animated animate__fadeIn'>{win} wins</h3>
+              )
+            ) : (
+              <h3 className='animate__animated animate__fadeIn'>{player} is up</h3>
+            )}
+
+          </div>
+          <div id='board-body'>
+
+            {board.map((value, index) => {
+              let isWinningSquare = false;
+              if (winStreak && winStreak.includes(index)) {
+                isWinningSquare = true;
+              }
+              return <Square key={index} value={value} player={player} onClick={() => playerMove(index)} isWinningSquare={isWinningSquare} disabled={isDisabled} />
+            })}
 
 
-        {win ? (
-          win === "Tie" ? (
-            <h3 className='animate__animated animate__fadeIn'>It's a Tie!</h3>
+            <div className={`animate__animated animate__fadeIn ${JSON.stringify(winStreak) === JSON.stringify(winConditions[0]) ? 'win-streak-1' : JSON.stringify(winStreak) === JSON.stringify(winConditions[1]) ? 'win-streak-2' : JSON.stringify(winStreak) === JSON.stringify(winConditions[2]) ? 'win-streak-3' : JSON.stringify(winStreak) === JSON.stringify(winConditions[3]) ? 'win-streak-4' : JSON.stringify(winStreak) === JSON.stringify(winConditions[4]) ? 'win-streak-5' : JSON.stringify(winStreak) === JSON.stringify(winConditions[5]) ? 'win-streak-6' : JSON.stringify(winStreak) === JSON.stringify(winConditions[6]) ? 'win-streak-7' : JSON.stringify(winStreak) === JSON.stringify(winConditions[7]) ? 'win-streak-8' : ''}`}>
+            </div>
+
+          </div>
+
+
+
+          {!win ? (
+            <div className='reset-switch-btns'>
+              <button onClick={reset} className='reset-button'>reset</button>
+              <button className='switch-btn' onClick={switchGameMode}>Switch Game Mode</button>
+            </div>
           ) : (
-            <h3 className='animate__animated animate__fadeIn'>{win} wins</h3>
-          )
-        ) : (
-          <h3 className='animate__animated animate__fadeIn'>{player} is up</h3>
-        )}
-
-      </div>
-      <div id='board-body'>
-
-        {board.map((value, index) => {
-          let isWinningSquare = false;
-          if (winStreak && winStreak.includes(index)) {
-            isWinningSquare = true;
-          }
-          return <Square key={index} value={value} player={player} onClick={() => playerMove(index)} isWinningSquare={isWinningSquare} />
-        })}
-
-      </div>
-
-
-
-      {!win ? (
-        <button onClick={reset} className='reset-button'>reset</button>
+            <div className='reset-switch-btns'>
+              <button onClick={reset} className='reset-button'>Play Again</button>
+              <button className='switch-btn' onClick={switchGameMode}>Switch Game Mode</button>
+            </div>
+          )}
+        </div>
       ) : (
-        <button onClick={reset} className='reset-button'>Play Again</button>
+        <div className='game-mode-panel'>
+          <button className='mode-btn' onClick={setSinglePlayer}>Single Player</button>
+          <button className='mode-btn' onClick={setDoublePlayer}>Double Player</button>
+        </div>
       )}
 
-
-
     </div>
+
   )
 }
 
@@ -126,3 +225,4 @@ export default Board
 
 
 
+//square 1

@@ -1,13 +1,21 @@
 import React, { useState } from 'react'
 
-const Square = ({ value, index, player, onClick, isWinningSquare }) => {
+const Square = ({ value, index, player, onClick, isWinningSquare, disabled }) => {
 
     // const [tiles, setTiles] = useState(false);
 
     // const player = value === "playerX" ? "X" : "O";
 
+
+    const handleClick = () => {
+        if (disabled) {
+            return
+        }
+        onClick();
+    }
+
     return (
-        <div onClick={onClick} className='square'>
+        <div onClick={handleClick} className='square'>
 
             {value === 'X' ? (
                 <svg
